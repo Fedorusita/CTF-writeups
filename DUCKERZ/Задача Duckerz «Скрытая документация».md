@@ -1,6 +1,6 @@
 <img width="1672" height="941" alt="Дисклеймер" src="https://github.com/user-attachments/assets/3ca6364e-a898-4836-92eb-63591429ba6e" />
 
-# DUCKERZ
+# DUCKERZ — «Скрытая документация»
 
 **Категория:** Web  
 **Сложность:** Easy  
@@ -10,28 +10,39 @@
 
 Хорошая документация – залог понятного и безопасного кода
 
-## Идея решения  
-*Переходим на сайт и видим следующий веб-интерфейс.*
+## Идея решения
+
+На сайте осталась открытая директория `/docs/` с внутренней документацией. 
+В ней был файл, указывающий путь к `.env`, где лежали учётные данные 
+администратора в открытом виде. Это классическая утечка через 
+незакрытую документацию.
+
+## Ход решения  
+*1. Переходим на сайт (http://task.duckerz.ru:21015/) и видим следующий веб-интерфейс.*
 
 <img width="554" height="360" alt="image" src="https://github.com/user-attachments/assets/4e1c5113-7b2d-41da-a422-b43bf4e77d04" />
 
-*Воспользуемся утиллитой dirsearch для поиска директорий сайта*
+*2. Воспользуемся утиллитой dirsearch для поиска директорий сайта.
+Запускаем `dirsearch -e php,html,sql,js,tar,log,tar.gz,zip,gz,swp,rar,asp,aspx -u http://task.duckerz.ru:21015` для поиска директорий.*
 
 <img width="554" height="303" alt="image" src="https://github.com/user-attachments/assets/2e2f608d-5f77-481b-b6bf-fa8875ef97f9" />
 
-*Внимание привлекает путь http://task.duckerz.ru:21015/docs/ перейдем туда*
+*3. Внимание привлекает путь http://task.duckerz.ru:21015/docs/ перейдем туда*
 
 <img width="553" height="154" alt="image" src="https://github.com/user-attachments/assets/4d0c98f4-267b-4168-89a8-5cdeebfb5f08" />
 
-*Откроем файл.*
+*4. Откроем файл.*
 
 <img width="554" height="123" alt="image" src="https://github.com/user-attachments/assets/c42c2b08-461d-4f8f-be64-c24c7f72d241" />
 
-*Далее перейдем по пути указанному в файле и откроем файл с переменными окружения*
+*5.Далее перейдем по пути указанному в файле и откроем файл с переменными окружения*
 
 <img width="553" height="79" alt="image" src="https://github.com/user-attachments/assets/ec824838-506a-408e-a197-ce683cfdc3d9" />
 
-*Тут разработчики оставили данные от профиля администратора. Введем полученные логин и пароль в форму сайта и получим доступ к флагу*
+*6. Находим .env с содержимым  
+`ADMIN_USER=...`  
+`ADMIN_PASSWORD=...`  
+Тут разработчики оставили данные от профиля администратора. Введем полученные логин и пароль в форму сайта и получим доступ к флагу*
 
 <img width="554" height="276" alt="image" src="https://github.com/user-attachments/assets/3cc80175-9c83-44d1-b96b-d8adda8130cb" />
 
